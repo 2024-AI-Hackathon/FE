@@ -16,7 +16,8 @@
     "framer-motion": "^11.11.10",
     "next": "14.0.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-google-font-loader": "^1.1.0"
   },
   "devDependencies": {
     "eslint": "^8",

@@ -6,7 +6,7 @@ import MicIcon from "@mui/icons-material/Mic";
 import { IconButton } from "@mui/material";
 import MicOffIcon from "@mui/icons-material/MicOff";
 
-function VoiceRecordingScreen() {
+function TranslateBox() {
   const [isRecording, setIsRecording] = useState(false);
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]); // 서버에서 받은 텍스트 저장
@@ -14,7 +14,7 @@ function VoiceRecordingScreen() {
   const handleRecordClick = () => {
     if (!isRecording) {
       // 녹음을 시작할 때 소켓을 연결하고 "start" 전송
-      const ws = new WebSocket("ws://localhost:8000/ws/stt");
+      const ws = new WebSocket("ws://localhost:8000/ws/translate");
       setSocket(ws);
 
       ws.onopen = () => {
@@ -25,9 +25,20 @@ function VoiceRecordingScreen() {
       ws.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data); // JSON 파싱
-          console.log(data.text);
-          if (data && data.text) {
-            setMessages((prevMessages) => [...prevMessages, data.text]); // "text" 값만 추가
+          console.log("Received data:", data.translated); // data.translated가 JSON 문자열인지 확인
+
+          // data.translated가 JSON 문자열이라면 한 번 더 JSON.parse 적용
+          const translatedData =
+            typeof data.translated === "string"
+              ? JSON.parse(data.translated)
+              : data.translated;
+
+          if (translatedData && translatedData.text) {
+            setMessages((prevMessages) => [
+              ...prevMessages,
+              translatedData.text, // "text" 값만 추가
+            ]);
+            console.log("Added to messages:", translatedData.text);
           }
         } catch (error) {
           console.error("Failed to parse message:", error);
@@ -90,7 +101,7 @@ function VoiceRecordingScreen() {
 
       {/* 텍스트 설명 */}
       <Typography variant="h6" gutterBottom>
-        마이크 버튼을 눌러 녹음을 시작해보세요.
+        번역하고픈 음성을 입력해주세요.
       </Typography>
 
       {/* 녹음 버튼 */}
@@ -140,4 +151,4 @@ function VoiceRecordingScreen() {
   );
 }
 
-export default VoiceRecordingScreen;
+export default TranslateBox;

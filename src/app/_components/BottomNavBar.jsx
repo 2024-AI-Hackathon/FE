@@ -17,6 +17,10 @@ function BottomNavBar() {
     router.push("/tss");
   };
 
+  const onClickGoTrans = () => {
+    router.push("/translate");
+  };
+
   return (
     <Paper
       sx={{
@@ -39,7 +43,11 @@ function BottomNavBar() {
       >
         <BottomNavigationAction label="Home" icon={<HomeIcon />} />
         <BottomNavigationAction label="" icon={<span />} />
-        <BottomNavigationAction label="Profile" icon={<PersonIcon />} />
+        <BottomNavigationAction
+          label="Profile"
+          onClick={onClickGoTrans}
+          icon={<PersonIcon />}
+        />
       </BottomNavigation>
 
       {/* 가운데 FAB 버튼 */}

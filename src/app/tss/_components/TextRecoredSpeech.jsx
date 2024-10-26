@@ -36,7 +36,7 @@ function TextRecordSpeech() {
 
       ws.onopen = () => {
         console.log("WebSocket connected");
-        ws.send("start"); // 서버로 시작 신호 전송
+        ws.send("tts 시작"); // 서버로 시작 신호 전송
       };
 
       ws.onclose = () => {
@@ -49,7 +49,7 @@ function TextRecordSpeech() {
     } else {
       // 녹음을 중지할 때 "stop" 전송하고 소켓 닫기
       if (socket && socket.readyState === WebSocket.OPEN) {
-        socket.send("stop"); // 서버로 종료 신호 전송
+        socket.send("tts 종료"); // 서버로 종료 신호 전송
         socket.close(); // WebSocket 닫기
         setSocket(null);
       }

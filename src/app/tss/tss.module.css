@@ -1,4 +1,4 @@
-.main {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -6,12 +6,13 @@
   height: 100dvh;
 }
 
-.container {
+.appContainer {
   width: 414px;
   height: 100%;
-  background-color: rgba(104, 146, 252, 0.54); /* 투명도 54% */
+  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+  justify-content: space-evenly;
 }
